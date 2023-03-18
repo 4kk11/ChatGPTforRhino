@@ -1,6 +1,9 @@
 # ChatGPTforRhino
 ## Overview:
-これはRhinocerosでChatGPTによるコマンド操作が行えるプラグインです。これを使用するにはOpenAIのAPIキーが必要となります。
+これはRhinocerosでChatGPTによるコマンド操作が行えるプラグインです。これを使用するにはOpenAIのAPIキーが必要となります。   
+開発には以下を参考にさせていただきました。   
+・https://twitter.com/tarukosu/status/1632010227292995586   
+・https://note.com/negipoyoc/n/n88189e590ac3
 
 ## Requirements(Recommended):
 ・Operating system: Windows 11  
