@@ -1,0 +1,110 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+					xmlns:custom="clr-namespace:ChatUI.CustomControls">
+	<Style TargetType="ListViewItem" x:Key="ChatItem">
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate>
+					<StackPanel Orientation="Horizontal">
+						
+						<!--チャット上のアイコン-->
+						<Ellipse Width="30" Height="30"
+								 Margin="0,5,0,-10"
+								 VerticalAlignment="Top">
+							<Ellipse.Fill>
+								<ImageBrush ImageSource="{Binding ImageSource}"
+											RenderOptions.BitmapScalingMode="Fant"/>
+							</Ellipse.Fill>
+						</Ellipse>
+						
+						
+						<StackPanel>
+							<!--名前と時刻-->
+							<StackPanel Orientation="Horizontal">
+								<Label Content="{Binding Username}"
+									   Foreground="{Binding UsernameColor}"
+									   FontWeight="SemiBold"
+									   VerticalAlignment="Center"
+									   Margin="0,0,-5,0"/>
+							</StackPanel>
+							
+							<!--メッセージ-->
+							<Border Background="#FFFFFF"
+									VerticalAlignment="Center"
+									HorizontalAlignment="Left"
+									CornerRadius="8"
+									Margin="0,0,0,10">
+								<TextBox Text="{Binding Message}"
+										 Background="Transparent"
+										 BorderThickness="0"
+										 Foreground="Black"
+										 FontSize="14"
+										 FontWeight="SemiBold"
+										 MaxWidth="400"
+										 IsReadOnly="True"
+										 VerticalAlignment="Center"
+										 TextWrapping="Wrap"
+										 HorizontalAlignment="Left"
+										 Margin="5,5,5,5"/>
+								
+							</Border>
+						</StackPanel>
+							
+					</StackPanel>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+
+		
+		<Style.Resources>
+			<!--自分のメッセージ-->
+			<ControlTemplate x:Key="CustomRow">
+				<StackPanel Orientation="Horizontal"
+						HorizontalAlignment="Right"
+						Margin="5">
+
+					<!--メッセージ-->
+					<Border Background="#62A7B7"
+								VerticalAlignment="Center"
+								HorizontalAlignment="Left"
+								CornerRadius="8">
+						<TextBox Text="{Binding Message}"
+										Background="Transparent"
+										BorderThickness="0"
+										Foreground="White"
+										FontSize="14"
+										FontWeight="SemiBold"
+										MaxWidth="400"
+										IsReadOnly="True"
+										VerticalAlignment="Center"
+										TextWrapping="Wrap"
+										HorizontalAlignment="Left"
+										Margin="5,5,5,5"/>
+					</Border>
+				</StackPanel>
+			</ControlTemplate>
+			
+			<!--LoadingSpinner-->
+			<ControlTemplate x:Key="LoadingSpinner">
+				<StackPanel>
+					<custom:LoadingSpinner VerticalAlignment="Center"
+											   HorizontalAlignment="Center"
+											   Margin="0,50,0,50"/>
+				</StackPanel>
+			</ControlTemplate>
+		</Style.Resources>
+
+		<Style.Triggers>
+			<DataTrigger Binding="{Binding IsMyMessage}" Value="True">
+				<Setter Property="Template" Value="{StaticResource CustomRow}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding IsLoadingSpinner}" Value="True">
+				<Setter Property="Template" Value="{StaticResource LoadingSpinner}"/>
+			</DataTrigger>
+		</Style.Triggers>
+
+
+		
+	</Style>
+    
+</ResourceDictionary>

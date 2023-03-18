@@ -1,0 +1,178 @@
+﻿<Window x:Class="ChatUI.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ChatUI"
+		xmlns:viewmodel="clr-namespace:ChatUI.MVVM.ViewModel"
+        mc:Ignorable="d"
+		Title="ChatGPTWindow"
+        Height="900" Width="600"
+		Background="#EEEEEE"
+		WindowStyle="None"
+		AllowsTransparency="True"
+		Topmost="True"
+		ResizeMode="CanResizeWithGrip"
+		WindowStartupLocation="CenterOwner">
+
+	<Window.DataContext>
+		<viewmodel:MainViewModel/>
+	</Window.DataContext>
+
+	<Window.Resources>
+		<ResourceDictionary>
+			<ResourceDictionary.MergedDictionaries>
+				<ResourceDictionary Source="./Themes/ChatItem.xaml"/>
+				<ResourceDictionary Source="./Themes/MessageBox.xaml"/>
+				<ResourceDictionary Source="./Themes/ModernScrollbar.xaml"/>
+				<ResourceDictionary Source="./Themes/ButtonTemplate.xaml"/>
+			</ResourceDictionary.MergedDictionaries>
+		</ResourceDictionary>
+	</Window.Resources>
+
+	<Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="25"/>
+			<RowDefinition/>
+		</Grid.RowDefinitions>
+
+		<Border Background="#EEEEEE"
+				MouseDown="Border_MouseDown">
+			<Grid HorizontalAlignment="Stretch">
+
+				<Label Content=""
+					   Foreground="Black"
+					   FontWeight="SemiBold"/>
+
+				<StackPanel HorizontalAlignment="Right"
+							Orientation="Horizontal">
+
+					<Button Width="20" Height="20"
+							Content="_"
+							Background="Transparent"
+							BorderThickness="0"
+							Foreground="Black"
+							FontWeight="Bold"
+							Margin="0,0,0,3"
+							Click="MinimizeButton_Click"/>
+
+					<Button Width="20" Height="20"
+							Content="□"
+							Background="Transparent"
+							BorderThickness="0"
+							Foreground="Black"
+							FontWeight="Bold"
+							Margin="0,0,0,3"
+							Click="WindowStateButton_Click"/>
+
+					<Button Width="20" Height="20"
+							Content="⨉"
+							Background="Transparent"
+							BorderThickness="0"
+							Foreground="Black"
+							FontWeight="Bold"
+							Margin="0,0,0,3" 
+							Click="CloseButton_Click"/>
+
+				</StackPanel>
+
+			</Grid>
+		</Border>
+
+		<Grid Grid.Row="1">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="50"/>
+				<RowDefinition/>
+				<RowDefinition Height="70"/>
+			</Grid.RowDefinitions>
+
+			<!--ヘッダー-->
+			<Border BorderBrush="White"
+					Background="#62A7B7"
+					BorderThickness="0,0,0,0">
+				<Grid HorizontalAlignment="Stretch"
+					  Margin="8">
+					<Label Content="ChatGPT"
+						   Foreground="White"
+						   FontWeight="Bold"
+						   Margin="5,0,5,0"
+						   FontSize="17"
+						   HorizontalAlignment="Center"
+						   VerticalAlignment="Center"/>
+					<StackPanel Orientation="Horizontal"
+								HorizontalAlignment="Right">
+						<Button Width="30" Height="30"
+								Name="DebugButton"
+								Background="Transparent"
+								BorderThickness="0"
+								Cursor="Hand"
+								Template="{StaticResource ButtonTemplate1}"
+								Click="Button_Click"
+								Margin="5,0,5,0">
+		
+							<Image  Source="./Icons/debug.png"/>
+						</Button>
+						<Button Width="30" Height="30"
+								Background="Transparent"
+								BorderThickness="0"
+								Cursor="Hand"
+								Template="{StaticResource ButtonTemplate1}"
+								Click="OptionButton_Click">
+							<Image  Source="./Icons/option.png"/>
+						</Button>
+						
+					</StackPanel>
+				</Grid>
+			</Border>
+
+			<!--チャットビュー-->
+			<ListView x:Name="ChatView"
+					  ItemsSource="{Binding Messages}"
+					  Background="Transparent"
+					  BorderThickness="0"
+					  ItemContainerStyle="{StaticResource ChatItem}"
+					  Margin="8,0,0,0"
+					  Grid.Row="1"
+					  ScrollViewer.CanContentScroll="False"
+					  />
+
+			<!--メッセージボックス-->
+			<Grid Grid.Row="2">
+				<Border CornerRadius="8"
+						Background="#62A7B7"
+						Margin="10">
+					<Grid VerticalAlignment="Center">
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition/>
+							<ColumnDefinition Width="40"/>
+						</Grid.ColumnDefinitions>
+
+						<!--テキストを入力するところ-->
+						<TextBox Grid.Row="1"
+								 Text="Message @Username"
+								 Style="{StaticResource MessageBox}"/>
+
+						<!--ボタン-->
+						<StackPanel Orientation="Horizontal"
+									HorizontalAlignment="Right"
+									Grid.Column="1"
+									Margin="0,0,3,0">
+							<Button Width="25" Height="25"
+									Background="Transparent"
+									BorderThickness="0"
+									Margin="5,5,0,0"
+									Cursor="Hand"
+									Command="{Binding SendCommand}"
+									Template="{StaticResource ButtonTemplate1}">
+								<Image Source="./Icons/send.png"/>
+							</Button>
+						</StackPanel>
+					</Grid>
+				</Border>
+			</Grid>
+
+
+		</Grid>
+		
+	</Grid>
+</Window>

@@ -1,0 +1,60 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+	<Style TargetType="TextBox" x:Key="MessageBox">
+		<Setter Property="Foreground" Value="Gray"/>
+		<Setter Property="FontWeight" Value="Medium"/>
+		<Setter Property="Margin" Value="8"/>
+
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="TextBox">
+					<Border CornerRadius="8">
+						<Grid>
+							
+							<TextBox VerticalAlignment="Stretch"
+									 VerticalContentAlignment="Center"
+									 HorizontalAlignment="Stretch"
+									 x:Name="MessageBox"
+									 Background="Transparent"
+									 BorderThickness="0"
+									 FontSize="14"
+									 TextWrapping="Wrap"
+									 FontWeight="SemiBold"
+									 Foreground="White"
+									 CaretBrush="White"
+									 Margin="0,0,0,0"
+									 Text="{Binding Message, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+								<TextBox.InputBindings>
+									<KeyBinding Command="{Binding SendCommand}" Key="Return"/>
+								</TextBox.InputBindings>
+							</TextBox>
+							
+							<!--何も入力されていないとき表示されるテキスト-->
+							<TextBlock IsHitTestVisible="False"
+									   Text="&lt;Prompt&gt;"
+									   VerticalAlignment="Center"
+									   HorizontalAlignment="Left"
+									   Margin="5,0,0,0"
+									   Foreground="White">
+								<TextBlock.Style>
+									<Style TargetType="TextBlock">
+										<Setter Property="Visibility" Value="Collapsed"/>
+										<Style.Triggers>
+											<DataTrigger Binding="{Binding Text, ElementName=MessageBox}" Value="">
+												<Setter Property="Visibility" Value="Visible"/>
+											</DataTrigger>
+										</Style.Triggers>
+									</Style>
+								</TextBlock.Style>
+								
+							</TextBlock>
+							
+						</Grid>
+							
+					</Border>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+
+	</Style>
+</ResourceDictionary>

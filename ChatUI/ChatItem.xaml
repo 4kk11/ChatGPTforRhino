@@ -1,0 +1,97 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+	<Style TargetType="ListViewItem" x:Key="ChatItem">
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate>
+					<StackPanel Orientation="Horizontal">
+						
+						<!--チャット上のアイコン-->
+						<Ellipse Width="30" Height="30"
+								 Margin="0,5,0,-10"
+								 VerticalAlignment="Top">
+							<Ellipse.Fill>
+								<ImageBrush ImageSource="{Binding ImageSource}"
+											RenderOptions.BitmapScalingMode="Fant"/>
+							</Ellipse.Fill>
+						</Ellipse>
+						
+						
+						<StackPanel>
+							<!--名前と時刻-->
+							<StackPanel Orientation="Horizontal">
+								<Label Content="{Binding Username}"
+									   Foreground="{Binding UsernameColor}"
+									   FontWeight="SemiBold"
+									   VerticalAlignment="Center"
+									   Margin="0,0,-5,0"/>
+								<Label Content="{Binding Time}"
+									   Foreground="#44474D"
+									   FontWeight="SemiBold"
+									   FontSize="8"
+									   VerticalAlignment="Center"/>
+							</StackPanel>
+							
+							<!--メッセージ-->
+							<Border Background="#3e4147"
+									VerticalAlignment="Center"
+									HorizontalAlignment="Left"
+									CornerRadius="8"
+									Margin="0,0,0,10">
+								<TextBox Text="{Binding Message}"
+										 Background="Transparent"
+										 BorderThickness="0"
+										 Foreground="White"
+										 FontSize="14"
+										 FontWeight="SemiBold"
+										 MaxWidth="400"
+										 IsReadOnly="True"
+										 VerticalAlignment="Center"
+										 TextWrapping="Wrap"
+										 HorizontalAlignment="Left"
+										 Margin="5,5,5,5"/>
+							</Border>
+						</StackPanel>
+							
+					</StackPanel>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+
+		<!--自分のメッセージ-->
+		<Style.Resources>
+			<ControlTemplate x:Key="CustomRow">
+				<StackPanel Orientation="Horizontal"
+							HorizontalAlignment="Right"
+							Margin="5">
+					<!--メッセージ-->
+					<Border Background="#3e4147"
+									VerticalAlignment="Center"
+									HorizontalAlignment="Left"
+									CornerRadius="8">
+						<TextBox Text="{Binding Message}"
+										 Background="Transparent"
+										 BorderThickness="0"
+										 Foreground="White"
+										 FontSize="14"
+										 FontWeight="SemiBold"
+										 MaxWidth="400"
+										 IsReadOnly="True"
+										 VerticalAlignment="Center"
+										 TextWrapping="Wrap"
+										 HorizontalAlignment="Left"
+										 Margin="5,5,5,5"/>
+					</Border>
+				</StackPanel>
+			</ControlTemplate>
+		</Style.Resources>
+
+		<Style.Triggers>
+			<DataTrigger Binding="{Binding IsMyMessage}" Value="True">
+				<Setter Property="Template" Value="{StaticResource CustomRow}"/>
+			</DataTrigger>
+		</Style.Triggers>
+		
+	</Style>
+    
+</ResourceDictionary>
