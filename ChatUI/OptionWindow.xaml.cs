@@ -24,15 +24,20 @@ namespace ChatUI
 			InitializeComponent();
 			//セッティングファイルをロード
 			Settings settings = Settings.LoadSettings();
-			if (settings != null) TextBox_APIKey.Text = settings.APIKey;
+			if (settings != null)
+			{
+				TextBox_APIKey.Password= settings.APIKey;
+				TextBox_SytemPrompt.Text = settings.SystemMessage;
+			}
 		}
 
 		private void Button_Click(object sender, RoutedEventArgs e)
 		{
-			string apiKey = TextBox_APIKey.Text;
-			if (apiKey == "") return;
+			string apiKey = TextBox_APIKey.Password;
+			string systemMessage = TextBox_SytemPrompt.Text;
+			if (apiKey == null || systemMessage == null) return;
 			//セッティングファイルをセーブ
-			Settings settings = new Settings(apiKey);
+			Settings settings = new Settings(apiKey, systemMessage);
 			settings.SaveSettings();
 			this.Close();
 		}

@@ -14,10 +14,11 @@ namespace ChatUI
 	{
 		private static readonly string FileName = Path.Combine(MainWindow.DllDirectory, "Settings.xml");
 		public string APIKey { get; set; }
-
-		public Settings(string apikey) 
+		public string SystemMessage { get; set; }
+		public Settings(string apikey, string systemMessage) 
 		{
 			APIKey = apikey;
+			SystemMessage = systemMessage;
 		}
 
 		public Settings() { }

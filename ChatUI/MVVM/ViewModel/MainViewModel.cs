@@ -32,7 +32,6 @@ namespace ChatUI.MVVM.ViewModel
 
 		private string CatIconPath => Path.Combine(MainWindow.DllDirectory, "Icons/cat.jpeg");
 
-
 		public MainViewModel()
 		{
 			Messages = new ObservableCollection<MessageModel>();
@@ -72,6 +71,7 @@ namespace ChatUI.MVVM.ViewModel
 			ScrollToBottom();
 		}
 
+		//TODO: 多責務になっているので分割したい
 		private async void SendToChatGPT(string message)
 		{
 			//LoadingSpinnerを表示
@@ -85,9 +85,9 @@ namespace ChatUI.MVVM.ViewModel
 				return;
 			}
 			string apiKey = settings.APIKey;
-
+			string systemMessage = settings.SystemMessage;
 			//ChatGPTにメッセージを送る
-			ChatGPTConnector connector = new ChatGPTConnector(apiKey);
+			ChatGPTConnector connector = new ChatGPTConnector(apiKey, systemMessage);
 			var response = await connector.RequestAsync(message);
 
 			//LoadingSpinnerを削除
@@ -107,7 +107,7 @@ namespace ChatUI.MVVM.ViewModel
 			//RhinoCommandを実行
 			//Rhinoを起動していない場合はここをコメントアウトする
 			RhinoCommand command = response.GetCommands();
-			command.RunCommand();
+			if (command != null) command.RunCommand();
 		}
 
 		private void AddChatGPTMessage(string mainMessage, string subMessage)
