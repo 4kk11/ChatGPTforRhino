@@ -37,7 +37,7 @@ namespace ChatUI
 			}
 		}
 
-		public  event ChatGPTResponseEventHandler ResponseReceived;
+		public event ChatGPTResponseEventHandler ResponseReceived;
 
 		public MainWindow()
 		{
@@ -118,7 +118,7 @@ namespace ChatUI
 
 		internal void OnResponseReceived(ChatGPTResponseEventArgs e)
 		{
-			ResponseReceived?.Invoke(null, e);
+			ResponseReceived?.Invoke(this, e);
 		}
 
 
