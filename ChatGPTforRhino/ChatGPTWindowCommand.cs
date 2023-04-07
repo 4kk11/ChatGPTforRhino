@@ -25,8 +25,8 @@ namespace ChatGPTforRhino
 
             var window = new ChatUI.MainWindow();
 
-			ChatUI.ChatGPTResponseEvent.ResponseReceived -= ResponseReceived;
-			ChatUI.ChatGPTResponseEvent.ResponseReceived += ResponseReceived;
+			window.ResponseReceived -= ResponseReceived;
+			window.ResponseReceived += ResponseReceived;
 
             //Rhinoのウィンドウを親に設定
             var rhinoHandle = RhinoApp.MainWindowHandle();

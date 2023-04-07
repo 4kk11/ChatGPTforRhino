@@ -105,7 +105,7 @@ namespace ChatUI.MVVM.ViewModel
 			AddChatGPTMessage(conversationText, fullText);
 
 			//イベントを実行
-			ChatGPTResponseEvent.OnResponseReceived(new ChatGPTResponseEventArgs(response));
+			MainWindow.OnResponseReceived(new ChatGPTResponseEventArgs(response));
 			
 		}
 

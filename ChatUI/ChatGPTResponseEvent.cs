@@ -7,14 +7,6 @@ using System.Threading.Tasks;
 
 namespace ChatUI
 {
-	public static class ChatGPTResponseEvent
-	{
-		public static event ChatGPTResponseEventHandler ResponseReceived;
-		internal static void OnResponseReceived(ChatGPTResponseEventArgs e)
-		{
-			ResponseReceived?.Invoke(null, e);
-		}
-	}
 
 	public delegate void ChatGPTResponseEventHandler(object sender, ChatGPTResponseEventArgs e);
 	public class ChatGPTResponseEventArgs : EventArgs
