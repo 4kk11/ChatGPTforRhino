@@ -50,9 +50,8 @@ namespace ChatGPTforRhino
 		private void ResponseReceived(object sender, ChatGPTResponseEventArgs e)
 		{
 			ChatGPTResponseModel response = e.Response;
-			RhinoCommand command = new RhinoCommand(response.GetCommands());
+			RhinoCommands command = new RhinoCommands(response.GetCommands());
 			if (command != null) command.RunCommand();
-			RhinoApp.WriteLine("aaaa");
 		}
 	}
 }

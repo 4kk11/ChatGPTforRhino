@@ -7,10 +7,10 @@ using Rhino;
 
 namespace ChatGPTforRhino
 {
-	public class RhinoCommand
+	public class RhinoCommands
 	{
 		string[] Commands;
-		public RhinoCommand(string[] commands) 
+		public RhinoCommands(string[] commands) 
 		{
 			if (commands == null || commands.Length == 0) throw new Exception("command is null or has no content");
 			this.Commands = commands;
