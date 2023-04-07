@@ -4,6 +4,7 @@ using Rhino.Commands;
 using ChatUI;
 using System.Windows.Interop;
 using System.Windows;
+using ChatGPTConnection;
 
 namespace ChatGPTforRhino
 {
@@ -24,6 +25,9 @@ namespace ChatGPTforRhino
 
             var window = new ChatUI.MainWindow();
 
+			ChatUI.ChatGPTResponseEvent.ResponseReceived -= ResponseReceived;
+			ChatUI.ChatGPTResponseEvent.ResponseReceived += ResponseReceived;
+
             //Rhinoのウィンドウを親に設定
             var rhinoHandle = RhinoApp.MainWindowHandle();
             var helper = new WindowInteropHelper(window);
@@ -41,6 +45,14 @@ namespace ChatGPTforRhino
 				if (window is T) return true;
 			}
 			return false;
+		}
+
+		private void ResponseReceived(object sender, ChatGPTResponseEventArgs e)
+		{
+			ChatGPTResponseModel response = e.Response;
+			RhinoCommand command = new RhinoCommand(response.GetCommands());
+			if (command != null) command.RunCommand();
+			RhinoApp.WriteLine("aaaa");
 		}
 	}
 }

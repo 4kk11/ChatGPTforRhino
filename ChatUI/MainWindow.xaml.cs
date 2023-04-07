@@ -21,6 +21,7 @@ using System.Collections.ObjectModel;
 using ChatUI.MVVM.ViewModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using ChatGPTConnection;
 
 namespace ChatUI
 {
@@ -39,7 +40,10 @@ namespace ChatUI
 		public MainWindow()
 		{
 			InitializeComponent();
+			var vm = this.DataContext as MainViewModel;
 		}
+
+
 
 		private void Border_MouseDown(object sender, MouseButtonEventArgs e)
 		{

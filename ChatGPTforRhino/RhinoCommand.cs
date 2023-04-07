@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Rhino;
 
-namespace ChatGPTConnection
+namespace ChatGPTforRhino
 {
 	public class RhinoCommand
 	{

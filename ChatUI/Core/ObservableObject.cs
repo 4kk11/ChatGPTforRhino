@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ChatUI.Core
 {
-	class ObservableObject : INotifyPropertyChanged
+	internal class ObservableObject : INotifyPropertyChanged
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
 

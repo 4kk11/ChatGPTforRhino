@@ -16,13 +16,13 @@ namespace ChatUI.MVVM.ViewModel
 	internal class MainViewModel : ObservableObject
 	{
 		public ObservableCollection<MessageModel> Messages { get; set; }
-		private MainWindow MainWindow {get; set;}
+		private MainWindow MainWindow { get; set; }
 		public RelayCommand SendCommand { get; set; }
 
 		private string _message = "";
-		public string Message 
-		{ 
-			get{ return _message; }
+		public string Message
+		{
+			get { return _message; }
 			set
 			{
 				_message = value;
@@ -50,7 +50,7 @@ namespace ChatUI.MVVM.ViewModel
 
 				//ChatGPTにメッセージをおくり、返信をメッセージに追加
 				SendToChatGPT(Message);
-				
+
 				//メッセージボックスを空にする
 				Message = "";
 			});
@@ -104,11 +104,12 @@ namespace ChatUI.MVVM.ViewModel
 			string fullText = response.GetMessage();
 			AddChatGPTMessage(conversationText, fullText);
 
-			//RhinoCommandを実行
-			//Rhinoを起動していない場合はここをコメントアウトする
-			RhinoCommand command = response.GetCommands();
-			if (command != null) command.RunCommand();
+			//イベントを実行
+			ChatGPTResponseEvent.OnResponseReceived(new ChatGPTResponseEventArgs(response));
+			
 		}
+
+		
 
 		private void AddChatGPTMessage(string mainMessage, string subMessage)
 		{
@@ -153,37 +154,6 @@ namespace ChatUI.MVVM.ViewModel
 					Messages.Remove(item);
 				}
 			}
-		}
-
-		private void Test_Message()
-		{
-
-			for (int i = 0; i < 4; i++)
-			{
-				Messages.Add(new MessageModel
-				{
-					Username = "You",
-					UsernameColor = "White",
-					Time = DateTime.Now,
-					MainMessage = "ああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああ",
-					
-					IsMyMessage = true
-				});
-
-			}
-
-			Messages.Add(new MessageModel
-			{
-				Username = "ChatGPT",
-				UsernameColor = "#738CBA",
-				ImageSource = CatIconPath,
-				Time = DateTime.Now,
-				MainMessage = "わたしはChatGPTです",
-				SubMessage = "こんにちは",
-				IsMyMessage = false
-			});
-
-
 		}
 	}
 }

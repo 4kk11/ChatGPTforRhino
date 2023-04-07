@@ -58,6 +58,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </None>
+    <Compile Include="ChatGPTResponseEvent.cs" />
     <Compile Include="CustomControls\LoadingSpinner.cs" />
     <Compile Include="Settings.cs" />
     <Page Include="ChatItem.xaml">

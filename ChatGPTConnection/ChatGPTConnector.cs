@@ -119,7 +119,7 @@ namespace ChatGPTConnection
 
 		//ChatGPTから受け取ったメッセージをパースする
 		//TODO: もう少しうまくつくりたい
-		public RhinoCommand GetCommands()
+		public string[] GetCommands()
 		{
 			string messageContent = GetMessage();
 			string text = messageContent.Replace("\r", "").Replace("\n", "");
@@ -127,7 +127,7 @@ namespace ChatGPTConnection
 			string[] words = text.Split(sepalater, StringSplitOptions.RemoveEmptyEntries);
 			if (words.Length == 1) return null;
 			string[] commands = words[0].Split(';');
-			return new RhinoCommand(commands);
+			return commands;
 		}
 
 		public string GetConversation()
